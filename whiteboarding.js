@@ -147,3 +147,22 @@ const makeChange = (amount, arr) => {
 // console.log('Expect: \nReceived:', makeChange(8, [1, 3, 5]));
 // console.log('Expect: \nReceived:', makeChange(12, [1, 3, 5]));
 // console.log('Expect: \nReceived:', makeChange(28, [1, 5, 10, 25]));
+
+
+const arrRotate = (arr) => {
+  const output = [];
+  for (let i = 0; i < arr.length; i++) {
+    let row = [];
+    for (let j = arr.length - 1; j >= 0; j--){
+      row.push(arr[j][i]);
+    }
+    output.push(row)
+  }
+  return output
+}
+
+const arrRotateT1 = arrRotate([[2,3], [4,5]]);
+
+// print('rotated shit', arrRotateT1)
+
+
