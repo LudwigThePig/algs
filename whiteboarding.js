@@ -1,3 +1,9 @@
+const print = (expect, result) => console.log(`Expected: ${expect}\nReceived`, result);
+
+
+
+
+
 const theBestDamnFunctionInTheWest = (arr, target) => {
   let result = 0;
   if (!arr.length) {
@@ -138,6 +144,6 @@ const makeChange = (amount, arr) => {
   }
   return result;
 }
-console.log('Expect: \nReceived:', makeChange(8, [1, 3, 5]));
-console.log('Expect: \nReceived:', makeChange(12, [1, 3, 5]));
-console.log('Expect: \nReceived:', makeChange(28, [1, 5, 10, 25]));
+// console.log('Expect: \nReceived:', makeChange(8, [1, 3, 5]));
+// console.log('Expect: \nReceived:', makeChange(12, [1, 3, 5]));
+// console.log('Expect: \nReceived:', makeChange(28, [1, 5, 10, 25]));
