@@ -1,4 +1,4 @@
-const print = (expect, result) => console.log(`Expected: ${expect}\nReceived`, result);
+const print = (expect, result) => console.log(`\nExpected: ${expect}\nReceived`, result);
 
 
 
@@ -166,3 +166,21 @@ const arrRotateT1 = arrRotate([[2,3], [4,5]]);
 // print('rotated shit', arrRotateT1)
 
 
+const srujsSpaceDestroyer = (str) => {
+  if (str.length < 1) {
+    return '';
+  }
+  let arr = str.split('');
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i] === ' ') {
+      arr[i] = '%20'
+    }
+  }
+  const result = arr.join('');
+  return result;
+}
+
+print('Mr%20John%20Smith', srujsSpaceDestroyer('Mr John Smith'))
+print('Mr%20John%20Smith', srujsSpaceDestroyer('Mr John Smith '))
+print('', srujsSpaceDestroyer(''))
+print('     ', srujsSpaceDestroyer('           '))
