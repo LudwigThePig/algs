@@ -210,3 +210,80 @@ var addTwoNumbers = function(l1, l2) {
 
   return before.next;
 };
+
+// https://leetcode.com/problems/number-of-islands/
+
+var numIslandsAttempt1 = function(grid) {
+  let row = grid[0].length;
+  let map = [].concat.apply([], grid);
+  let islandCount = 0;
+  
+  // if land, '1'
+  // if water, '0'
+  // if counted landed, -1
+  
+  const checkNeighbors = (idx) => {
+      const up = idx - row;
+      if ( map[up] === '1' ){
+          map[up] = -1;
+          checkNeighbors(up);
+      }
+      
+      const down = idx + row;
+      if ( map[down] === '1' ){
+          map[down] = -1;
+          checkNeighbors(down);
+          
+      }
+      
+      const left = idx - 1;
+      if ( map[left] === '1' ){
+          map[left] = -1;
+          checkNeighbors(left);
+
+      }
+      
+      const right = idx + 1
+      if ( map[right] === '1' ){
+          map[right] = -1;
+          checkNeighbors(right);
+      }
+      return map;
+  }
+  
+  for (let i = 0; i < map.length; i++) {
+      if (map[i] === '1') {
+          map[i] = -1;
+          islandCount++;
+          checkNeighbors(i);
+      }
+  }  
+  
+  return islandCount;
+};
+
+var numIslandsAttempt2 = function(grid) {
+  if (grid.length === 0) return 0;
+  let islandCount = 0;
+  
+  const height = grid.length;
+  const width = grid[0].length;
+  const checkNeighbors = function(i, j) {
+      if (i >= 0 && i < height && j >= 0 && j < width && grid[i][j] == "1") {
+          grid[i][j] = "0";
+          checkNeighbors(i + 1, j);
+          checkNeighbors(i - 1, j);
+          checkNeighbors(i, j + 1);
+          checkNeighbors(i, j - 1);
+      }
+  };
+  for (let i = 0; i < height; i++) {
+      for (let j = 0; j < width; j++) {
+          if (grid[i][j] == "1") {
+              checkNeighbors(i, j);
+              islandCount++;
+          }
+      }
+  }
+  return islandCount
+};
