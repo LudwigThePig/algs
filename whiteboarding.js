@@ -300,3 +300,15 @@ var containsNearbyAlmostDuplicate = function(nums, k, t) {
   
   return false;
 };
+
+var containsNearbyAlmostDuplicate2 = function(nums, k, t) {  
+  for (let i = 0; i < nums.length - 1; i++) {
+      for (let j = i+1; j < nums.length && Math.abs(i - j) <= k; j++) {
+          if (Math.abs(nums[i] - nums[j]) <= t) {
+              return true;
+          }
+      }
+  }
+  
+  return false;
+};
