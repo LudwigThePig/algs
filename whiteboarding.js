@@ -287,3 +287,16 @@ var numIslandsAttempt2 = function(grid) {
   }
   return islandCount
 };
+
+// https://leetcode.com/problems/contains-duplicate-iii/
+var containsNearbyAlmostDuplicate = function(nums, k, t) {  
+  for (let i = 0; i < nums.length - 1; i++) {
+      for (let j = 1; j < nums.length; j++) {
+          if (Math.abs(i - j) <= k && Math.abs(nums[i] - nums[j]) <= t && i !== j) {
+              return true;
+          }
+      }
+  }
+  
+  return false;
+};
