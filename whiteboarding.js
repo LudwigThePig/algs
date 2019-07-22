@@ -312,3 +312,31 @@ var containsNearbyAlmostDuplicate2 = function(nums, k, t) {
   
   return false;
 };
+
+// https://leetcode.com/problems/median-of-two-sorted-arrays
+var findMedianSortedArrays = function(arr1, arr2) {
+  let i = 0;
+  let j = 0;
+  let result = [];
+  while (i < arr1.length || j < arr2.length) {
+      
+  
+  let elem1 = arr1[i];
+  let elem2 = arr2[j];
+  if(elem1 < elem2 && elem1 !== undefined){
+    result.push(elem1);
+    i++;
+  } else if(elem1 > elem2 && elem2 !== undefined) {
+    result.push(elem2);
+    j++;
+  } else {
+    if(elem1 !== undefined) result.push(elem1);
+    if(elem2 !== undefined) result.push(elem2);
+    i++;
+    j++;
+  }
+}
+  return result.length % 2 === 0 
+      ? (result[result.length/2 - 1] + result[result.length/2])/2 
+      :  result[(result.length + 1)/2 - 1];
+};
