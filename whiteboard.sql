@@ -25,3 +25,9 @@ SELECT t1.Id FROM Weather t1
 INNER JOIN Weather t2
 WHERE t1.Temperature > t2.Temperature
 AND t1.RecordDate = DATE_ADD(t2.RecordDate, INTERVAL 1 DAY);
+
+
+-- https://leetcode.com/problems/employees-earning-more-than-their-managers/submissions/
+SELECT e.Name as Employee FROM Employee as e, Employee as m
+WHERE  e.ManagerId = m.Id 
+AND e.Salary > e.Salary;
