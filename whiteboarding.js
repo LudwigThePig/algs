@@ -340,3 +340,60 @@ var findMedianSortedArrays = function(arr1, arr2) {
       ? (result[result.length/2 - 1] + result[result.length/2])/2 
       :  result[(result.length + 1)/2 - 1];
 };
+
+
+
+
+/**
+ * @param {number[][]} board
+ * @return {void} Do not return anything, modify board in-place instead.
+ */
+
+
+var gameOfLife = function(board) { 
+  const countLiveNeighbors = (i, j) => {
+    let count = 0;
+
+    if (i - 1 >= 0 && board[i - 1][j]) count++;
+    if (i + 1 < board.length && board[i + 1][j]) count++;
+    if (j - 1 >= 0 && board[i][j - 1]) count++;
+    if (j + 1 < board[0].length && board[i][j + 1]) count++;
+    if (i - 1 >= 0 && j - 1 >= 0 && board[i - 1][j - 1]) count++;
+    if (i - 1 >= 0 && j + 1 < board[0].length && board[i - 1][j + 1]) count++;
+    if (i + 1 < board.length && j + 1 < board[0].length && board[i + 1][j + 1]) count++;
+    if (i + 1 < board.length && j - 1 >= 0 && board[i + 1][j - 1]) count++;
+
+    return count;
+  }
+
+  let newBoard = [];
+
+  for (let i = 0; i < newBoard.length; i++) {
+    let row = [];
+      for (let j = 0; j < newBoard[0].length; j++) {
+        let count = countLiveNeighbors(i,j);
+        let newCell = 0;
+        if (newBoard[i][j]) {
+          newCell = (count < 2 || count > 3) ? 0 : 1;
+        } else {
+          newCell = (count === 3) ? 1 : 0;
+        }
+        console.log(newCell)
+        row.push(newCell)
+      }
+      newBoard.push(row);
+  }
+  
+  return newBoard;
+};
+
+
+const lifeInput = [
+  [0,1,0],
+  [0,0,1],
+  [1,1,1],
+  [0,0,0]
+];
+const lifeOutput = `[ [ 0, 0, 0 ], [ 1, 0, 1 ], [ 0, 1, 1 ], [ 0, 1, 0 ] ]`;
+
+print(lifeOutput.toString(), gameOfLife(lifeInput))
