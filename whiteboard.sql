@@ -27,7 +27,14 @@ WHERE t1.Temperature > t2.Temperature
 AND t1.RecordDate = DATE_ADD(t2.RecordDate, INTERVAL 1 DAY);
 
 
--- https://leetcode.com/problems/employees-earning-more-than-their-managers/submissions/
+-- https://leetcode.com/problems/employees-earning-more-than-their-managers/
 SELECT e.Name as Employee FROM Employee as e, Employee as m
 WHERE  e.ManagerId = m.Id 
 AND e.Salary > e.Salary;
+
+
+-- https://leetcode.com/problems/duplicate-emails/
+SELECT DISTINCT Email 
+FROM Person
+GROUP BY Email
+HAVING count(1) > 1
