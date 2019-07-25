@@ -396,4 +396,44 @@ const lifeInput = [
 ];
 const lifeOutput = `[ [ 0, 0, 0 ], [ 1, 0, 1 ], [ 0, 1, 1 ], [ 0, 1, 0 ] ]`;
 
-print(lifeOutput.toString(), gameOfLife(lifeInput))
+// print(lifeOutput.toString(), gameOfLife(lifeInput))
+
+
+
+
+
+
+
+
+
+
+// https://leetcode.com/problems/zigzag-conversion/submissions/
+var convert = function(s, numRows) {
+  let result = [];
+  let row = 0;
+  let dir = 1;
+  s.split('')
+    .forEach(ch => {
+      result[row] = result[row] || [];
+      result[row].push(ch);
+      row += dir;
+      if (row === numRows - 1) dir = -1;
+      if (row === 0) dir = 1;
+  });
+  return result.map(row => row.join('')).join('')
+};
+
+
+// 3 rows
+//  P   A   H   N
+//  A P L S I I G
+//  Y   I   R
+
+// 4 rows
+//  P     I    N
+//  A   L S  I G
+//  Y A   H R
+//  P     I
+
+print('PAHNAPLSIIGYIR', convert('PAYPALISHIRING', 3));
+print('PINALSIGYAHRPI', convert('PAYPALISHIRING', 4));
