@@ -437,3 +437,23 @@ var convert = function(s, numRows) {
 
 print('PAHNAPLSIIGYIR', convert('PAYPALISHIRING', 3));
 print('PINALSIGYAHRPI', convert('PAYPALISHIRING', 4));
+
+
+
+
+// https://leetcode.com/problems/longest-palindromic-substring/submissions/
+const isPalindrome = (str) => {
+  return str === str.split('').reverse().join('');
+}
+var longestPalindrome = function(s) {
+  let longest = '';
+  for (let i = 0; i < s.length - 1; i++) {
+      for (let j = 0; j < s.length; j++) {
+          let subStr = s.slice(i,j)
+          if (isPalindrome(subStr)) {
+              longest = longest.length < subStr ? subStr: longest;
+          }
+      }
+  }
+  return longest;
+};
