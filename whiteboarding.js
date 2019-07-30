@@ -520,4 +520,24 @@ var myAtoi = function(str) {
   return res;
 };
 
-print(42, myAtoi('-42'));
+// print(-42, myAtoi('-42'));
+
+
+
+// https://leetcode.com/problems/container-with-most-water/
+
+var maxArea = function(height) {
+  let maxVol = -1;
+  let start = 0;
+  let end = height.length - 1;
+  
+  while (start < end) {
+      const tempVol = Math.min(height[start], height[end]) * (end - start);
+      if (tempVol > maxVol) maxVol = tempVol;
+      
+      height[start] <= height[end] ? start++ : end--;
+  }
+  return maxVol;
+};
+
+print(49, maxArea([1,8,6,2,5,4,8,3,7]))
