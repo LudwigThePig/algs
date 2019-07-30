@@ -435,8 +435,8 @@ var convert = function(s, numRows) {
 //  Y A   H R
 //  P     I
 
-print('PAHNAPLSIIGYIR', convert('PAYPALISHIRING', 3));
-print('PINALSIGYAHRPI', convert('PAYPALISHIRING', 4));
+// print('PAHNAPLSIIGYIR', convert('PAYPALISHIRING', 3));
+// print('PINALSIGYAHRPI', convert('PAYPALISHIRING', 4));
 
 
 
@@ -500,3 +500,24 @@ var myPow = function(x, n) {
     return myPow(1/x, -n);
   }
 };
+
+
+
+
+
+
+// https://leetcode.com/problems/string-to-integer-atoi/
+var myAtoi = function(str) {
+  const regex =  /^ *([\+|\-]?)(\D*)(\d*)/;
+  const [, sign, noDigits, digits] = regex.exec(str);
+  const max = 2 ** 31 - 1;
+  const min = (-2) ** 31;
+  if (noDigits || !digits) return 0;
+  
+  const res = sign === '-' ? digits * -1 : digits;
+  if (res > max) return max;  
+  if (res < min) return min    
+  return res;
+};
+
+print(42, myAtoi('-42'));
