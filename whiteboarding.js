@@ -540,4 +540,26 @@ var maxArea = function(height) {
   return maxVol;
 };
 
-print(49, maxArea([1,8,6,2,5,4,8,3,7]))
+// print(49, maxArea([1,8,6,2,5,4,8,3,7]))
+
+
+
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function(height) {
+  let trap = Array(height.length).fill(1);
+  for (let i = 0; i < height.length; i++) {
+    // check for higher neighbors.
+    let l = i > 0 ? i - 1 : 0
+    let r = i < height.length - 1 ? i + 1 : height.length - 1;
+    let tempHeight = height[i];
+    while(height[l] > tempHeight && height[r] > tempHeight) {
+      trap[i] = tempHeight;
+    }
+  }
+  return trap.reduce( (acc, cur) => acc+cur);
+};
+
+print(6, trap([0,1,0,2,1,0,1,3,2,1,2,1]));
