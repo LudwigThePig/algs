@@ -666,7 +666,7 @@ var longestCommonPrefix = function(strs) {
 var threeSum = function(nums) {
   let sortedNums = nums.sort((a, b) => a - b)
   let results = [];
-  
+
   for (let i = 0; i < sortedNums.length - 2; i++) {
     const first = sortedNums[i];
 
@@ -694,3 +694,39 @@ var threeSum = function(nums) {
   }
   return results;
 };
+
+
+
+
+// https://leetcode.com/problems/3sum-closest/
+var threeSumClosest = function(nums, target) {
+  const sorted = nums.sort((a, b) => a - b);
+  let closest;
+  let result;
+  for (let i = 0; i < sorted.length - 2; i++) {
+    if (sorted[i] === sorted[i - 1]) continue;
+
+    for (let j = i + 1, k = sorted.length - 1; j < k;) {
+      const sum = sorted[i] + sorted[j] + sorted[k];
+      const curNet = Math.abs(sum - target);
+      if (closest === undefined || Math.abs(curNet - target) < closest) {
+        closest = curNet;
+        result = sum;
+        j++;
+        k++;
+
+        while(j < k && sorted[j] === sorted[j - 1]) j++;
+        while(j < k && sorted[k] === sorted[k + 1]) k--;
+      } else if (sum > target) {
+        k--;
+      } else {
+        j++;
+      }
+    }
+  }
+
+  return result;
+};
+
+
+print(-1, threeSumClosest([1,1,-1,-1,3], -1))
