@@ -706,18 +706,21 @@ var threeSumClosest = function(nums, target) {
   for (let i = 0; i < sorted.length - 2; i++) {
     if (sorted[i] === sorted[i - 1]) continue;
 
-    for (let j = i + 1, k = sorted.length - 1; j < k;) {
+    let  j = i + 1;
+    let k = sorted.length - 1
+    while (j < k) {
       const sum = sorted[i] + sorted[j] + sorted[k];
       const curNet = Math.abs(sum - target);
-      if (closest === undefined || Math.abs(curNet - target) < closest) {
+      
+      if (closest === undefined || curNet < closest) {
         closest = curNet;
         result = sum;
-        j++;
-        k++;
+        if (sum === target) return target;
 
-        while(j < k && sorted[j] === sorted[j - 1]) j++;
-        while(j < k && sorted[k] === sorted[k + 1]) k--;
-      } else if (sum > target) {
+        // while(j < k && sorted[j] === sorted[j - 1]) j++;
+        // while(j < k && sorted[k] === sorted[k + 1]) k--;
+      }
+      if (sum > target) {
         k--;
       } else {
         j++;
