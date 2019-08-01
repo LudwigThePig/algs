@@ -659,3 +659,38 @@ var longestCommonPrefix = function(strs) {
   }
   return result;
 };
+
+
+// https://leetcode.com/problems/3sum/
+
+var threeSum = function(nums) {
+  let sortedNums = nums.sort((a, b) => a - b)
+  let results = [];
+  
+  for (let i = 0; i < sortedNums.length - 2; i++) {
+    const first = sortedNums[i];
+
+    if (first > 0) break;
+    if (first === sortedNums[i - 1]) continue;
+
+    for (let j = i + 1, k = sortedNums.length - 1; j < k;) {
+      const sum = first + sortedNums[j] + sortedNums[k];
+
+      if (sum === 0) {
+        results.push([first, sortedNums[j], sortedNums[k]]);
+        
+        j++;
+        k--;
+
+        while (j < k && sortedNums[j] === sortedNums[j - 1]) j++;
+        while ( j < k && sortedNums[k] === sortedNums[k + 1]) k--;
+
+      } else if (sum > 0) {
+        k--;
+      } else {
+        j++;
+      }
+    }
+  }
+  return results;
+};
