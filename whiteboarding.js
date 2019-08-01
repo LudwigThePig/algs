@@ -601,6 +601,36 @@ var intToRoman = function(n) {
   }
   return result;
 };
-print('III', intToRoman(3));
-print('IV', intToRoman(4));
-print('XV', intToRoman(15));
+// print('III', intToRoman(3));
+// print('IV', intToRoman(4));
+// print('XV', intToRoman(15));
+
+
+
+
+
+// https://leetcode.com/problems/roman-to-integer/submissions/
+const romanHash = {
+  M: 1000,
+  D: 500,
+  C: 100,
+  L: 50,
+  X: 10,
+  V: 5,
+  I: 1
+};
+
+
+var romanToInt = function(s) {
+    let result = 0;
+    for (let i = 0; i < s.length; i++) {
+        let next = i + 1 < s.length ? romanHash[s[i+1]] : 0;
+        let cur = romanHash[s[i]];
+        if (next > cur) {
+            result -= cur;
+        } else {
+            result += cur;
+        }
+    }
+    return result;
+};
