@@ -562,4 +562,45 @@ var trap = function(height) {
   return trap.reduce( (acc, cur) => acc+cur);
 };
 
-print(6, trap([0,1,0,2,1,0,1,3,2,1,2,1]));
+// print(6, trap([0,1,0,2,1,0,1,3,2,1,2,1]));
+
+
+
+
+
+const romanTuple = [
+  [1000, 'M'],
+  [900, 'CM'],
+  [500, 'D'],
+  [400, 'CD'],
+  [100, 'C'],
+  [90, 'XC'],
+  [50, 'L'],
+  [40, 'XL'],
+  [10, 'X'],
+  [9, 'IX'],
+  [5, 'V'],
+  [4, 'IV'],
+  [1, 'I']
+];
+// https://leetcode.com/problems/integer-to-roman/
+var intToRoman = function(n) {
+  if (n === 0) return n;
+  
+  let result = '';
+  
+  while (n > 0) {
+    for (let tuple of romanTuple) {
+      let [arabic, roman] = tuple;
+      if(arabic <= n) {
+        result += roman;
+        n -= arabic; 
+        break;
+      }
+    };
+  }
+  return result;
+};
+print('III', intToRoman(3));
+print('IV', intToRoman(4));
+print('XV', intToRoman(15));
