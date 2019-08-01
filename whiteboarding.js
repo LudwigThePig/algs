@@ -731,5 +731,34 @@ var threeSumClosest = function(nums, target) {
   return result;
 };
 
+// print(-1, threeSumClosest([1,1,-1,-1,3], -1))
 
-print(-1, threeSumClosest([1,1,-1,-1,3], -1))
+
+
+
+const phone = {
+    '2': ['a','b','c'],
+    '3':['d','e','f'],
+    '4':['g','h','i'],
+    '5':['j','k','l'],
+    '6':['m','n','o'],
+    '7':['p','r','q','s'],
+    '8':['t','u','v'],
+    '9':['w','x','y','z']
+}
+
+var letterCombinations = function(digits) {
+  if (digits.length === 0) return [];
+  let combinations = [];
+
+  const recurse = (digs, comb) => {
+    if (digs.length === 0) return combinations.push(comb);
+    phone[digs[0]].forEach(char => {
+      recurse(digs.slice(1), comb.concat(char));
+    })
+  };
+  recurse(digits, '');
+  return combinations;
+};
+
+print('', letterCombinations('23'))
