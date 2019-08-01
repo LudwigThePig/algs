@@ -634,3 +634,28 @@ var romanToInt = function(s) {
     }
     return result;
 };
+
+
+// https://leetcode.com/problems/longest-common-prefix/submissions/
+
+var longestCommonPrefix = function(strs) {
+  if (strs.length === 0) return '';
+  if (strs.length === 1) return strs[0];
+  let result = '';
+  for (let i = 0; i < strs[0].length; i++) {
+      let char = strs[0][i];
+      let common = true;
+      for (let j = 0; j < strs.length; j++) {
+          if (strs[j][i] !== char) {
+              common = false;
+              break;
+          }
+      }
+      if (common) {
+          result += char;
+      } else {
+          break;
+      }
+  }
+  return result;
+};
