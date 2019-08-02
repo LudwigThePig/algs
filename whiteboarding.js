@@ -801,7 +801,7 @@ return result.next;
 
 
 
-
+// https://leetcode.com/problems/valid-parentheses/
 var isValid = function(s) {
   const map = {
     ')': '(', 
@@ -822,7 +822,26 @@ var isValid = function(s) {
   return stack.length === 0;
 };
 
-print(true, isValid('{[]}'));
-print(false, isValid('{'));
-print(false, isValid(']'));
-print(false, isValid('[{]}'));
+// print(true, isValid('{[]}'));
+// print(false, isValid('{'));
+// print(false, isValid(']'));
+// print(false, isValid('[{]}'));
+
+
+
+
+// https://leetcode.com/problems/generate-parentheses/
+var generateParenthesis = function(n) {
+    if (n === 0) return [];
+    let combs = [];
+    const recurse = (str, open, close) => {
+      if (str.length === n * 2) {
+        combs.push(str)
+      }
+      if (open >= close + 1) recurse(str + ')', open, close + 1);
+      if (open < n) recurse(str + '(', open + 1, close)
+    }
+    recurse('(', 1, 0);
+    return combs;
+};
+print(["((()))","(()())","(())()","()(())","()()()"], generateParenthesis(3))
