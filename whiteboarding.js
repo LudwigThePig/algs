@@ -761,7 +761,7 @@ var letterCombinations = function(digits) {
   return combinations;
 };
 
-print('', letterCombinations('23'))
+// print('', letterCombinations('23'))
 
 
 
@@ -770,7 +770,7 @@ print('', letterCombinations('23'))
 
 
 
-
+// https://leetcode.com/problems/remove-nth-node-from-end-of-list/submissions/
 function ListNode(val) {
   this.val = val;
   this.next = null;
@@ -795,3 +795,34 @@ const recurse = (node, j) => {
 recurse(result, n);
 return result.next;
 };
+
+
+
+
+
+
+
+var isValid = function(s) {
+  const map = {
+    ')': '(', 
+    '}': '{', 
+    ']': '['
+  };
+  const stack = [];
+  for (const ch of s) {
+    if (ch === '(' || ch === '{' || ch === '[')  {
+      stack.push(ch)
+    } else {
+      const popped = stack.pop();
+      if (popped !== map[ch]) {
+        return false
+      }
+    }
+  }
+  return stack.length === 0;
+};
+
+print(true, isValid('{[]}'));
+print(false, isValid('{'));
+print(false, isValid(']'));
+print(false, isValid('[{]}'));
