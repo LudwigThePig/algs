@@ -762,3 +762,36 @@ var letterCombinations = function(digits) {
 };
 
 print('', letterCombinations('23'))
+
+
+
+
+
+
+
+
+
+function ListNode(val) {
+  this.val = val;
+  this.next = null;
+}
+/**
+* @param {ListNode} head
+* @param {number} n
+* @return {ListNode}
+*/
+var removeNthFromEnd = function(head, n) {
+let result = new ListNode();
+result.next = head;
+const recurse = (node, j) => {
+    if (!node) return 0;
+    let temp = recurse(node.next, j)
+    if (temp === j) {
+        node.next = node.next ? node.next.next : null;
+    }
+    return ++temp;
+}
+
+recurse(result, n);
+return result.next;
+};
