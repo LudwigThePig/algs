@@ -28,3 +28,15 @@ def remove_duplicates2(nums)
   end
   i + 1
 end
+
+
+
+
+# https://leetcode.com/problems/maximum-subarray/submissions/
+def max_sub_array(nums)
+  best, cur = nums[0], 0
+  nums.each do |n|
+      best = [best, cur = [n, cur+n].max].max 
+  end
+  best
+end
