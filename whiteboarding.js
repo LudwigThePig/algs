@@ -842,4 +842,36 @@ var generateParenthesis = function(n) {
   recurse('(', 1, 0);
   return combs;
 };
-print(["((()))","(()())","(())()","()(())","()()()"], generateParenthesis(3))
+// print(["((()))","(()())","(())()","()(())","()()()"], generateParenthesis(3))
+
+
+
+
+
+
+
+// https://leetcode.com/problems/swap-nodes-in-pairs/
+
+  function ListNode(val) {
+      this.val = val;
+      this.next = null;
+  }
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var swapPairs = function(head) {
+  let result = new ListNode(-1);
+  result.next = head;
+  let cur = result;
+  while(cur.next !== null || cur.next.next !== null) {
+    let first = cur.next;
+    let second = cur.next.next;
+    cur.next.next = cur.next.next.next;
+    cur.next = second;
+    cur.next.next = first;
+
+    cur = cur.next.next;
+  }
+  return result.next;
+};
