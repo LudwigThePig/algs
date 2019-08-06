@@ -883,16 +883,27 @@ var swapPairs = function(head) {
 // https://leetcode.com/problems/search-in-rotated-sorted-array/
 
 var search = function(nums, target) {
-    const binSearch = (start, end) => {
-      if (start === end) return start;
-      const mid = Math.floor((end - start) / 2) + start;
-      if (nums[mid] === target) return mid;
-      if (nums[mid] > target) {
-        return nums[end] < target ? binSearch(mid, end) : binSearch(start, mid);
-      }
-      if (nums[mid] < target) {
-        return nums[start] > target ? binSearch(start, mid) : binSearch(mid, end);
-      }
-    };
-    return binSearch(0, nums.length - 1);
+  if (nums.length < 2) return nums[0] === target ? 0 : -1;
+  let left = 0;
+  let right = nums.length - 1;
+  let center = Math.floor((right + left) / 2);
+  while (left < right) {
+    if (nums[left] <= nums[center]) {
+        if (nums[left] <= target && target <= nums[center]) {
+            right = center;
+        } else {
+            left = center + 1;
+        }
+    } else {
+        if (nums[center] < target && target <= nums[right]) {
+            left = center + 1;
+        } else {
+            right = center;
+        }
+    }
+    center = Math.floor((right+left)/2);
+    if (nums[center] === target) return center;
+}
+    return -1;
 };
+print(-1, search([4,5,6,7,0,1,2], 3))
