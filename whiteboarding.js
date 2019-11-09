@@ -942,3 +942,19 @@ var largestPerimeter = function(A) {
   }
   return 0;
 };
+
+
+// https://leetcode.com/problems/unique-email-addresses/
+var numUniqueEmailsREADABLE = function(emails) {
+  const hash = {};
+
+  emails.forEach(email => {
+      let [localName, domain] = email.split('@');
+      localName = localName.split('.').join('')
+      localName = localName.split('+')[0];
+      hash[`${localName}@${domain}`] = true;
+  });
+  return Object.keys(hash).length;
+};
+
+var numUniqueEmails = emails => emails.reduce((acc, cur) => acc.add(cur.replace(/(\+.*(?=@)|(\.(?=.*@)))/g, '')),new Set()).size;
