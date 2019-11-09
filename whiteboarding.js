@@ -992,3 +992,14 @@ var countBattleships = function(board) {
 
   return count;
 };
+
+
+// https://leetcode.com/problems/counting-bits/
+var countBits = function(num) {
+  let res = [];
+  for (let i = 0; i <= num; i++){
+      const binary = Number(i).toString(2);
+      res.push(binary.replace(/0/g, '').length);
+  }
+  return res;
+};
