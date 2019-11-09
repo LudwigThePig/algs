@@ -958,3 +958,37 @@ var numUniqueEmailsREADABLE = function(emails) {
 };
 
 var numUniqueEmails = emails => emails.reduce((acc, cur) => acc.add(cur.replace(/(\+.*(?=@)|(\.(?=.*@)))/g, '')),new Set()).size;
+
+
+
+// https://leetcode.com/problems/battleships-in-a-board/
+var countBattleships = function(board) {
+  let count = 0;
+
+  
+  const checkNeighbors = (i, j) => { // [check neighbors helper func]
+      board[i][j] = '.';
+              
+      const lenI = board.length - 1;
+      const lenJ = board[0].length - 1;
+      
+      if (i < lenI && board[i+1][j] === 'X') return checkNeighbors(i+1, j);
+      if (i > 0 && board[i-1][j] === 'X') return checkNeighbors(i-1, j);
+      if (j < lenJ && board[i][j+1] === 'X') return checkNeighbors(i, j+1);
+      if (j > 0 && board[i][j-1] === 'X') return checkNeighbors(i, j-1);
+  }
+  
+  
+  // loop through matrix.
+  for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board[i].length; j++) {
+          if (board[i][j] === 'X') {   // if char == x
+              count++;                 // increment count
+              checkNeighbors(i, j); // call check neighbors helper func
+
+          }
+      }
+  }
+
+  return count;
+};
