@@ -919,3 +919,16 @@ var numJewelsInStones = function(J, S) {
   
   return count;
 };
+
+// https://leetcode.com/problems/two-sum/discuss/417949/javascript-better-than-97
+var twoSum = function(nums, target) {
+  const hash = {};
+  for (let i = 0; i < nums.length; i++) {
+      // if compliment exists, return compliment index and i
+      if (hash.hasOwnProperty(nums[i])) return [hash[nums[i]], i];
+      
+      // else, save the compliment
+      const compliment = target - nums[i];
+      hash[compliment] = i;
+  }
+}
