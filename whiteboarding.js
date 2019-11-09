@@ -907,3 +907,15 @@ var search = function(nums, target) {
     return -1;
 };
 print(-1, search([4,5,6,7,0,1,2], 3))
+
+
+// https://leetcode.com/problems/jewels-and-stones/
+var numJewelsInStones = function(J, S) {
+  let count = 0;
+  
+  S.split('').forEach(ch => {
+      if (J.indexOf(ch) !== -1) count++;
+  });
+  
+  return count;
+};
