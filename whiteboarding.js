@@ -932,3 +932,13 @@ var twoSum = function(nums, target) {
       hash[compliment] = i;
   }
 }
+
+
+// https://leetcode.com/problems/largest-perimeter-triangle/
+var largestPerimeter = function(A) {
+  const sorted = A.sort((a, b) => b - a);
+  for (let i = 0; i <= sorted.length - 3; i++) {
+      if (sorted[i+2] + sorted[i+1] > sorted[i]) return sorted[i] + sorted[i+1] + sorted[i+2];
+  }
+  return 0;
+};
