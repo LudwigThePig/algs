@@ -1033,7 +1033,7 @@ var largestRectangleAreaBRUTEFORCE = function(heights) {
 };
 
 
-var largestRectangleArea = function(heights) {
+var largestRectangleAreaStack = function(heights) {
   let maxArea = 0;
   const stack = [{ left: 0, val: 0 }];
 
@@ -1057,3 +1057,24 @@ var largestRectangleArea = function(heights) {
   }
   return maxArea;
  };
+
+
+
+var largestRectangleArea = function(height) {
+  if (height.length === 0) return 0;
+  const stack = [];
+  let maxArea = 0;
+
+  for (let i = 0; i <= height.length; i++) {
+      const cur = i === height.length ? -1 : height[i];
+
+      while (stack.length !== 0 && cur < height[stack[stack.length-1]]) {
+          const index = stack.pop();
+          const top = height[index];
+          const width = stack.length === 0 ? i : i - stack[stack.length-1]-1;
+          maxArea = Math.max(maxArea, top * width);
+      }
+      stack.push(i);
+  }
+  return maxArea;
+};
