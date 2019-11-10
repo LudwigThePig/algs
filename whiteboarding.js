@@ -1007,7 +1007,7 @@ var countBits = function(num) {
 
 
 // https://leetcode.com/problems/largest-rectangle-in-histogram/submissions/
-var largestRectangleArea = function(heights) {
+var largestRectangleAreaBRUTEFORCE = function(heights) {
   let max = 0;
   for (let i = 0; i< heights.length; i++) {
       const base = heights[i];
@@ -1031,3 +1031,29 @@ var largestRectangleArea = function(heights) {
   
   return max;
 };
+
+
+var largestRectangleArea = function(heights) {
+  let maxArea = 0;
+  const stack = [{ left: 0, val: 0 }];
+
+  const peek = () => stack[stack.length - 1] || null;
+
+  for (let i = 0; i < heights.length + 1; i++) {
+    const push = () => stack.push({ left: i + 1, val: heights[i] });
+      
+    if (heights[i] && heights[i] > peek().val) {
+      push();
+    } else {
+
+
+      while (peek() && peek().val > (heights[i] || 0)) {
+        const top = stack.pop();
+        const left = peek() ? peek().left : 0;
+        maxArea = Math.max(maxArea, (i - left) * top.val);
+      }
+      push();
+    }
+  }
+  return maxArea;
+ };
