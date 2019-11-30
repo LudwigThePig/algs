@@ -1111,3 +1111,42 @@ var minPathSum = function(grid) {
 
   return grid[rows - 1][cols - 1]
 };
+
+
+
+// https://leetcode.com/problems/search-a-2d-matrix/
+var searchMatrix = function(matrix, target) {
+  if (!matrix.length || !matrix[0].length) return false;
+  
+  const rowLen = matrix[0].length - 1;
+  let top = 0;
+  let bottom = matrix.length - 1;
+  let left = 0;
+  let right = rowLen;
+  
+  while (top <= bottom) {
+      const midRow = Math.floor((top + bottom ) / 2);
+
+      // Check if target is in range of row
+      if (matrix[midRow][0] <= target && matrix[midRow][rowLen] >= target) {
+          while (left <= right) {
+              const midCol = Math.floor((left + right) / 2);
+              const curVal = matrix[midRow][midCol];
+              
+              if (curVal === target) return true;
+              if (curVal < target) left = midCol + 1;
+              else right = midCol - 1;
+          }
+          return false; // If she ain't in this row, she ain't in any row
+      }
+
+      // Figure out if we are below or above the target
+      if (matrix[midRow][0] > target) { // Above target
+          bottom = midRow - 1;
+      } else { // Under target
+          top = midRow + 1;
+      }
+  }
+
+  return false;
+};
