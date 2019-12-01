@@ -1193,3 +1193,4 @@ var exist = function(board, word) {
     }
     return false;
 };
+
