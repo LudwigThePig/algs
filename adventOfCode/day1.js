@@ -1,4 +1,4 @@
-const { print } = require('./utils')
+const { print, test } = require('./utils')
 
 /*******************
  * * Problem One * *
