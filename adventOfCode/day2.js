@@ -12,7 +12,6 @@ const fixGravityAssistProgram = (input, noun, verb) => {
   arr[2] = verb;
 
   for (let i = 0; i < arr.length; i += 4) {
-    const slice = arr.slice(i, i + 4);
     const [cmd, pos1, pos2, loc] = slice;
     if (cmd === 1) arr[loc] = (arr[pos1] + arr[pos2]);
     if (cmd === 2) arr[loc] = (arr[pos1] * arr[pos2]);
