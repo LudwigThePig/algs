@@ -25,3 +25,15 @@ test(fixGravityAssistProgram(puzzleInput, 12, 0), 3409710, 'Part One')
 
 
 
+/*******************
+ * * Problem Two * *
+ *******************/
+
+const find19690720 = () => {
+  for (let noun = 0; noun <= 100; noun++) 
+    for (let verb = 0; verb <= 100; verb++) 
+      if (fixGravityAssistProgram(puzzleInput, noun, verb) === 19690720) 
+        return 100 * noun + verb;
+}
+
+test(find19690720(find19690720), '???', 'Part Two')
