@@ -53,17 +53,55 @@ test(findNearestDuaneReade(inputOne, inputTwo), 225, 'Part One')
  * * Problem Two * *
  *******************/
 
+const driveTaxiQuickly = (road, cb) => {
+  
+  let curPos = { streets: 0, aves:0, newYorkMinutes: 0 };
+  
+  for (let i = 0; i < road.length; i++) {
+    const direction = dir[road[i][0]];
+    const dist = Number(road[i].slice(1));
+    
+    for (let j = 0; j < dist; j++) {
+      curPos.aves += direction.y;
+      curPos.streets += direction.x;
+      curPos.newYorkMinutes++;
+      cb(curPos);
+    }
+    
+  }
+}
+
+const firstTaxiRide = route => {
+  const taxiPosition = {};
+
+  const courseOfAction = stoplight => {
+    const { aves, streets, newYorkMinutes } = stoplight;
+    taxiPosition[`${aves} ${streets}`] = newYorkMinutes;
+  }
+
+  driveTaxiQuickly(route, courseOfAction);
+  return taxiPosition;
+}
+
+const secondTaxiRide = (route, firstRide) => {
+  let bestTime = Infinity;
+
+  const courseOfAction = stoplight => {
+    const { aves, streets, newYorkMinutes } = stoplight;
+    const intersection = firstRide[`${aves} ${streets}`];
+    if (intersection !== undefined) {
+      bestTime = Math.min(bestTime, (newYorkMinutes + intersection));
+    }
+  }
+  driveTaxiQuickly(route, courseOfAction);
+
+  return bestTime;
+}
+
 
 const quickestDuaneReadeRun = (routeOne, routeTwo) => {
-  const firstTaxi = driveTaxi(routeOne);
-  const secondTaxi = driveTaxi(routeTwo);
-  let newYorkMinutes = Infinity;
-  firstTaxi.forEach((cityBlock, i) => {
-    if (secondTaxi.has(cityBlock)) 
-    newYorkMinutes = Math.min(newYorkMinutes, JSON.parse(cityBlock).minutes);
-  });
-  return newYorkMinutes;
+  const firstTaxi = firstTaxiRide(routeOne);
+  return secondTaxiRide(routeTwo, firstTaxi);
 };
 
 test(quickestDuaneReadeRun(inputOne, inputTwo), '???', 'Part Two')
-
