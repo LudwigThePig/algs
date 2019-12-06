@@ -1205,3 +1205,10 @@ var maxSubArray = function(nums) {
   }
   return max;
 };
+
+
+// https://leetcode.com/problems/divisor-game
+var divisorGame = function(N) {
+  if (N % 2 === 0) return true;
+  return false;
+};
