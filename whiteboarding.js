@@ -1230,3 +1230,16 @@ var generate = function(numRows) {
   }
   return res;
 };
+
+
+
+// https://leetcode.com/problems/sort-colors
+var sortColors = nums => {
+  const count = [0,0,0];
+  nums.forEach(color => count[color]++);
+  let cur = 0;
+  for (; cur < count[0]; cur++) nums[cur] = 0;
+  for (; cur < count[0] + count[1]; cur++) nums[cur] = 1;
+  for (; cur < nums.length; cur++) nums[cur] = 2;
+  return nums;
+};
