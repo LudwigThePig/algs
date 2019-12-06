@@ -1212,3 +1212,21 @@ var divisorGame = function(N) {
   if (N % 2 === 0) return true;
   return false;
 };
+
+// https://leetcode.com/problems/pascals-triangle
+var generate = function(numRows) {
+  if (!numRows) return [];
+  const res = [[1]];
+  let prev = res;
+  for (let i = 2; i < numRows + 1; i++) {
+      const row = [1];
+      
+      for (let j = 1; j < i -  1; j++) {
+          row.push((prev[j] || 0) + (prev[j-1] || 0));
+      }
+      row.push(1);
+      prev = row;
+      res.push(row);
+  }
+  return res;
+};
