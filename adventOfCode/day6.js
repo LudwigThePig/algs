@@ -27,17 +27,12 @@ test(resolveOrbits(orbits.COM, 1), 344238, 'Part One');
 /*******************
  * * Problem Two * *
  *******************/
-
-
 const findAstronautSanta = (planet, stack, target) => {
-  if (planet === target) {
-    return stack;
-  };
+  if (planet === target) return stack;
   if (!orbits[planet]) return;
   const [port, starboard] = orbits[planet];
   return findAstronautSanta(port, [...stack, port], target) || findAstronautSanta(starboard, [...stack, starboard], target);
 }
-
 
 const reuniteMeWithSanta = (myPath, santasPath) => {
   for (let i = 0; i < santasPath.length; i++) {
@@ -45,6 +40,9 @@ const reuniteMeWithSanta = (myPath, santasPath) => {
   }
 }
 
-const pathToSanta = reuniteMeWithSanta(findAstronautSanta(orbits.COM, [], 'YOU'), findAstronautSanta(orbits.COM, [], 'SAN'));
+const pathToSanta = reuniteMeWithSanta(
+  findAstronautSanta(orbits.COM, [], 'YOU'),
+  findAstronautSanta(orbits.COM, [], 'SAN')
+  );
 
 test(pathToSanta, 436, 'Part Two')
