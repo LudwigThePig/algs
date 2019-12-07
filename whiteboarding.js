@@ -1250,7 +1250,7 @@ var sortColors = nums => {
 
 
 // https://leetcode.com/problems/combination-sum
-var combinationSum = function(candidates, target) {
+var combinationSumHIFO = function(candidates, target) {
   let res = [];
 
   const recurse = (remain, curArr, curSum) => {
@@ -1259,6 +1259,23 @@ var combinationSum = function(candidates, target) {
           return res.push(curArr);
       }
       remain.forEach((item, i) => recurse(remain.slice(i), curArr.concat([item]), curSum + item));
+  };
+  recurse(candidates, [], 0);
+  return res;
+};
+
+
+var combinationSum = function(candidates, target) {
+  let res = [];
+
+  const recurse = (remain, curArr, curSum) => {
+      if (curSum > target) return;
+      if (curSum === target) {
+          return res.push(curArr);
+      }
+      for (let i = 0; i < remain.length; i++) {
+          recurse(remain.slice(i), curArr.concat(remain[i]), curSum + remain[i]);
+      }
   };
   recurse(candidates, [], 0);
   return res;
