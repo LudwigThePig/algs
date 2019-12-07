@@ -1243,3 +1243,23 @@ var sortColors = nums => {
   for (; cur < nums.length; cur++) nums[cur] = 2;
   return nums;
 };
+
+
+
+
+
+
+// https://leetcode.com/problems/combination-sum
+var combinationSum = function(candidates, target) {
+  let res = [];
+
+  const recurse = (remain, curArr, curSum) => {
+      if (curSum > target) return;
+      if (curSum === target) {
+          return res.push(curArr);
+      }
+      remain.forEach((item, i) => recurse(remain.slice(i), curArr.concat([item]), curSum + item));
+  };
+  recurse(candidates, [], 0);
+  return res;
+};
