@@ -1280,3 +1280,22 @@ var combinationSum = function(candidates, target) {
   recurse(candidates, [], 0);
   return res;
 };
+
+
+
+
+
+
+// https://leetcode.com/problems/jump-game
+const canJump = function(nums) {
+  const example = [3, 2, 1, 0, 4]
+
+  let res = false;
+  const greedyRecurse = (ptr) => {
+    if (ptr >= nums.length - 1) return res = true; // 🎉
+    const range = [...Array(nums[ptr]).keys()];
+    for (let i = 0; i < range.length; i++) greedyRecurse(ptr + i + 1);
+  };
+  greedyRecurse(0);
+  return res;
+};
