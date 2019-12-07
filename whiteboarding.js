@@ -1288,8 +1288,6 @@ var combinationSum = function(candidates, target) {
 
 // https://leetcode.com/problems/jump-game
 const canJump = function(nums) {
-  const example = [3, 2, 1, 0, 4]
-
   let res = false;
   const greedyRecurse = (ptr) => {
     if (ptr >= nums.length - 1) return res = true; // 🎉
@@ -1299,3 +1297,11 @@ const canJump = function(nums) {
   greedyRecurse(0);
   return res;
 };
+
+var canJump2 = function(nums) {
+  let remain = nums.length - 1;
+  for (let i = nums.length - 2; i >= 0; i--){
+      if (i + nums[i] >= remain) remain = i;   
+  }
+  return remain === 0;
+}
