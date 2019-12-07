@@ -29,7 +29,23 @@ test(resolveOrbits(orbits.COM, 1), 344238, 'Part One');
  *******************/
 
 
+const findAstronautSanta = (planet, stack, target) => {
+  if (planet === target) {
+    return stack;
+  };
+  if (!orbits[planet]) return;
+  const [port, starboard] = orbits[planet];
+  return findAstronautSanta(port, [...stack, port], target) || findAstronautSanta(starboard, [...stack, starboard], target);
+}
 
-test(findSanta(orbits.COM, 1), '???', 'Part Two')
+const me = findAstronautSanta(orbits.COM, [], 'YOU');
+const santa = findAstronautSanta(orbits.COM, [], 'SAN');
 
+const reuniteMeWithSanta = (myPath, santasPath) => {
+  for (let i = 0; i < santasPath.length; i++) {
+    if (myPath[i] !== santasPath[i]) return myPath.slice(i).length + santasPath.slice(i).length + 2;
+  }
+}
+
+test(reuniteMeWithSanta(me, santa), 436, 'Part Two')
 
