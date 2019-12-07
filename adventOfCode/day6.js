@@ -5,17 +5,17 @@ const path = require('path');
 const pathName = path.resolve(__dirname, 'day6.input.txt');
 const input = fs.readFileSync(pathName, 'utf8').split('\n');
 
-/*******************
- * * Problem One * *
- *******************/
 const orbits = {};
-
 input.forEach(orbit => {
   const [planet, moon] = orbit.split(')');
   if (orbits.hasOwnProperty(planet)) orbits[planet].push(moon);
   else orbits[planet] = [moon];
 });
 
+
+/*******************
+ * * Problem One * *
+ *******************/
 const resolveOrbits = (planet, count) => {
   if (!orbits[planet]) return count;
   return count + orbits[planet].reduce((acc, cur) => acc + resolveOrbits(cur, count+1), 0);
@@ -38,14 +38,13 @@ const findAstronautSanta = (planet, stack, target) => {
   return findAstronautSanta(port, [...stack, port], target) || findAstronautSanta(starboard, [...stack, starboard], target);
 }
 
-const me = findAstronautSanta(orbits.COM, [], 'YOU');
-const santa = findAstronautSanta(orbits.COM, [], 'SAN');
 
 const reuniteMeWithSanta = (myPath, santasPath) => {
   for (let i = 0; i < santasPath.length; i++) {
-    if (myPath[i] !== santasPath[i]) return myPath.slice(i).length + santasPath.slice(i).length + 2;
+    if (myPath[i] !== santasPath[i]) return myPath.slice(i).length + santasPath.slice(i).length - 2;
   }
 }
 
-test(reuniteMeWithSanta(me, santa), 436, 'Part Two')
+const pathToSanta = reuniteMeWithSanta(findAstronautSanta(orbits.COM, [], 'YOU'), findAstronautSanta(orbits.COM, [], 'SAN'));
 
+test(pathToSanta, 436, 'Part Two')
