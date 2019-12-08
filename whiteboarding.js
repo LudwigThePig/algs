@@ -1335,3 +1335,20 @@ var inorderTraversal = function(root) {
   
   return res;
 };
+
+
+
+
+
+// https://leetcode.com/problems/symmetric-tree
+var isSymmetric = function(root) {
+  const bfs = (left, right) => {
+    // Handle exit conditions!
+    if (!left && !right) return true;
+    if (!left || !right || left.val !== right.val) return false;
+    
+    return bfs(left.left, right.right) && bfs(left.right, right.left);
+    
+  }
+  return bfs(root, root)  
+};
