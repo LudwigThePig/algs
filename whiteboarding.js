@@ -1372,3 +1372,43 @@ var isSymmetric = function(root) {
   
   return true;
 };
+
+
+
+
+
+
+
+
+
+
+
+
+// https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list
+var flatten = function(head) {
+  
+  const recurse = (node) => {
+    // Break Cases
+    if (node === null) return node;
+    else if (!node.child && !node.next) return node;
+    
+    // Flatten Cases
+    else if (!node.child) return recurse(node.next);
+    else {
+      let child = node.child;
+      node.child = null;
+      let next = node.next;
+      node.next = child;
+      child.prev = node;
+      let flat = recurse(child);
+      if (next) {
+        flat.next = next;
+        next.prev = flat;
+        return recurse(next);
+      }
+      return flat;
+    }
+  }
+  recurse(head);
+  return head;
+};
