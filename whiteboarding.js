@@ -1389,24 +1389,27 @@ var flatten = function(head) {
   
   const recurse = (node) => {
     // Break Cases
-    if (node === null) return node;
-    else if (!node.child && !node.next) return node;
+    if (node === null || (!node.child && !node.next)) return node;
     
-    // Flatten Cases
+    // No kids? Go right
     else if (!node.child) return recurse(node.next);
+
+    // Flatten children
     else {
-      let child = node.child;
+      const child = node.child;
       node.child = null;
-      let next = node.next;
+      const next = node.next;
       node.next = child;
       child.prev = node;
-      let flat = recurse(child);
-      if (next) {
+      const flat = recurse(child);
+
+      // Are we done?
+      if (!next) return flat; // Yes
+      else { // Nope, reattach child in sequence
         flat.next = next;
         next.prev = flat;
         return recurse(next);
       }
-      return flat;
     }
   }
   recurse(head);
