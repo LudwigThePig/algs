@@ -1418,11 +1418,51 @@ var flatten = function(head) {
 
 
 
-https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array
+// https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array
 var findMaximumXOR = function(nums) {
   let max = 0;
   for (let i = 0; i < nums.length - 1; i++)
     for (let j = i; j < nums.length; j++) 
       max = Math.max(max, (nums[i] ^ nums[j]))
   return max
+};
+
+
+
+// https://leetcode.com/problems/spiral-matrix
+var spiralOrder = function(matrix) {
+  if (!matrix.length) return [];
+  let res = [];
+
+  const b = { // Boundaries (Inclusive)
+    x: { min: 0, max: matrix[0].length - 1 },
+    y: { min: 0, max: matrix.length - 1 },
+  }
+  
+  while (b.x.min <= b.x.max && b.y.min <= b.y.max) {
+    // 👉
+    for (let i = b.x.min ; i <= b.x.max; i++) 
+      res.push(matrix[b.y.min][i])
+    b.y.min++;
+    
+    // 👇
+    for (let i = b.y.min ; i <= b.y.max; i++) 
+      res.push(matrix[i][b.x.max])
+    b.x.max--;
+
+    
+    // 👈
+    for (let i = b.x.max ; i >= b.x.min; i--) 
+      res.push(matrix[b.y.max][i])
+    b.y.max--;
+    
+    // 👆
+    for (let i = b.y.max; i >= b.y.min; i--)
+      res.push(matrix[i][b.x.min])  
+    b.x.min++;
+    
+  }
+  
+  // if (m x n) matrix, slice excess elems
+  return res.splice(0, (matrix.length * matrix[0].length));
 };
