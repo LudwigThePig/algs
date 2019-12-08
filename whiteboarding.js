@@ -1341,7 +1341,7 @@ var inorderTraversal = function(root) {
 
 
 // https://leetcode.com/problems/symmetric-tree
-var isSymmetric = function(root) {
+var isSymmetricRecursive = function(root) {
   const bfs = (left, right) => {
     // Handle exit conditions!
     if (!left && !right) return true;
@@ -1351,4 +1351,24 @@ var isSymmetric = function(root) {
     
   }
   return bfs(root, root)  
+};
+
+
+var isSymmetric = function(root) {
+  const leftQ = [root];
+  const rightQ = [root];
+  while (leftQ.length && rightQ.length) {
+    const left = leftQ.pop()
+    const right = rightQ.pop();
+    
+    if (!right && !left) continue;
+    if (!right || !left || right.val !== left.val) return false;
+    
+    leftQ.push(left.left);
+    rightQ.push(right.right);
+    leftQ.push(left.right);
+    rightQ.push(right.left);
+  }
+  
+  return true;
 };
