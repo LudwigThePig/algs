@@ -1415,3 +1415,14 @@ var flatten = function(head) {
   recurse(head);
   return head;
 };
+
+
+
+https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array
+var findMaximumXOR = function(nums) {
+  let max = 0;
+  for (let i = 0; i < nums.length - 1; i++)
+    for (let j = i; j < nums.length; j++) 
+      max = Math.max(max, (nums[i] ^ nums[j]))
+  return max
+};
