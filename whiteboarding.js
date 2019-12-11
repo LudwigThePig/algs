@@ -1466,3 +1466,56 @@ var spiralOrder = function(matrix) {
   // if (m x n) matrix, slice excess elems
   return res.splice(0, (matrix.length * matrix[0].length));
 };
+
+
+// https://leetcode.com/problems/text-justificatio
+var fullJustify = function(words, maxWidth) {
+  // Helper Function
+  const padOneWord = word => {
+    const padding = maxWidth - word.length;
+    return word + ' '.repeat(padding)
+  }
+
+  
+  
+  let res = [];
+  let curRow = [];
+  let curLen = 0;
+  while(words.length > 0) {
+    // If there is space in this row, push a word on
+    if (words[0].length <= maxWidth - (curLen + curRow.length)) {
+      const [ curWord ] = words.splice(0, 1);
+      curLen += curWord.length;
+      curRow.push(curWord);
+    } else { // The row is full. Now we do the tricky stuff
+      // Only one item, give it right padding  
+      if (curRow.length === 1) {
+        res.push(padOneWord(curRow[0]));
+      } else {
+        
+      
+      
+      let padding = maxWidth - curLen;
+      
+      let i = 0;
+      for (;padding > 0; padding--) {
+        curRow[i] += ' ';
+        i = (i + 1) % (curRow.length - 1);
+      }
+      
+      res.push(curRow.join(''))
+      }
+      curRow = [];
+      curLen = 0;
+    }
+  }
+  
+  // If Straggler, give him a row with right padding.
+  if (curRow.length) {
+    console.log(curRow.join(' '))
+    
+    res.push(padOneWord(curRow.join(' ')));
+  }
+  
+  return res;
+};
