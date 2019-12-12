@@ -1521,7 +1521,7 @@ var fullJustify = function(words, maxWidth) {
 };
 
 
-var dailyTemperatures = function(T) {
+var dailyTemperaturesBruteForce = function(T) {
   for (let i = 0; i < T.length; i++) {
     let val = 0;
     for (let j = i + 1; j < T.length; j++) {
@@ -1533,4 +1533,33 @@ var dailyTemperatures = function(T) {
     T[i] = val;
   }
   return T;
+};
+
+var dailyTemperatures = function(T) {
+	// Create a new array. Init with worst case
+  const res = new Array(T.length).fill(0);
+  
+  // To store the indicies of unresolved days. It will always be in descending order.
+  // So, the top of the stack is more recent than the beginning of the stack.
+  const stack = [];
+  
+  // Helper Func
+  const top = () => stack[stack.length - 1];
+
+  for (let i = 0; i < T.length; i++) {
+    while(stack.length && T[top()] < T[i]) { // While we can resolve stuff
+	
+	  // Cur is going to be the index of the last day
+	  // That was cooler than today (i)
+      const cur = stack.pop();
+	  
+	  // Update that day with the difference between today and the cooler day
+      res[cur] = i - cur;
+	  
+	  // If the current day is hotter than other days in the stack, keep on trucking.
+    }
+    stack.push(i);
+  }
+
+  return res;
 };
