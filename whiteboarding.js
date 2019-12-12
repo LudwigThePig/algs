@@ -1519,3 +1519,18 @@ var fullJustify = function(words, maxWidth) {
   
   return res;
 };
+
+
+var dailyTemperatures = function(T) {
+  for (let i = 0; i < T.length; i++) {
+    let val = 0;
+    for (let j = i + 1; j < T.length; j++) {
+      if (T[j] > T[i]) {
+        val = j - i;
+        break;
+      }
+    }
+    T[i] = val;
+  }
+  return T;
+};
