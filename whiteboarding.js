@@ -1563,3 +1563,27 @@ var dailyTemperatures = function(T) {
 
   return res;
 };
+
+
+
+
+// https://leetcode.com/problems/happy-number/submissions/
+var isHappyBRUTEFORCE = function(n, hist = {}) {
+  const chars = n.toString()
+                 .split('');
+
+  const sum = chars.reduce((acc, cur) => {
+    const int = parseInt(cur, 10)
+    return acc + (int * int);
+  }, 0);
+
+  
+  if (sum === 1) return true;
+  if (hist.hasOwnProperty(sum)) {
+    return false
+  }
+  else {
+    hist[sum] = true;
+    return isHappy(sum, hist);
+  }
+};
