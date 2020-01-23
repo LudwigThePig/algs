@@ -1587,3 +1587,24 @@ var isHappyBRUTEFORCE = function(n, hist = {}) {
     return isHappy(sum, hist);
   }
 };
+
+var isHappy = function(n, hist = []) {
+  // Create array of n's digits
+  const chars = n.toString()
+                 .split('');
+
+  // Multiply strings 🙈
+  const sum = chars.reduce((acc, cur) => acc + Math.pow(cur, 2), 0);
+
+  // If isHappy, return true 🤖
+  if (sum === 1) return true;
+  
+  // If we are in a loop, return false
+  if (hist.hasOwnProperty(sum)) return false;
+  
+  // Record what we have seen and try again
+  else {
+    hist[sum] = true;
+    return isHappy(sum, hist);
+  }
+};
