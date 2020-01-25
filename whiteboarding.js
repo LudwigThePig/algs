@@ -1659,3 +1659,44 @@ const maxProductBRUTE = function(words) {
 
   return max;
 };  
+
+
+
+const convertToInt = str => {
+  let int = 0;
+  const baseCharCode = ('a').charCodeAt(0); // a value to tare all other char codes
+
+  for (let i = 0; i < str.length; i++) {
+    const curCharCode = str.charCodeAt(i); // Convert char to number
+    int |= 1 << (str.charCodeAt(i) - baseCharCode); // XOR 
+  }
+
+  return int;
+}
+
+const areStringsUnique = (a, b) => {
+  const intA = convertToInt(a);
+  const intB = convertToInt(b);
+
+  if ((intA & intB) === 0) return true;
+  else return false;
+};
+
+const maxProduct = function(words) {
+  let max = 0;
+  for (let i = 0; i < words.length - 1; i++) {
+    for (let j = i + 1; j < words.length; j++) {
+      const a = words[i];
+      const b = words[j];
+      let unique = true;
+
+      // compare wordz
+      if ( areStringsUnique(words[i], words[j]) ) {
+        max = Math.max( max, (words[i].length * words[j].length) )
+      }
+      
+    }
+  }
+
+  return max;
+};
