@@ -1608,3 +1608,23 @@ var isHappy = function(n, hist = []) {
     return isHappy(sum, hist);
   }
 };
+
+
+
+
+// https://leetcode.com/problems/cousins-in-binary-tree/submissions/
+var isCousins = function(root, x, y) {  
+  const dfs = (node, target, depth, parent) => {
+    if (!node) return null;
+    if (node.val === target) return { depth, parent };
+
+    return dfs(node.left, target, depth + 1, node.val) 
+           || dfs(node.right, target, depth + 1, node.val);
+  };
+  
+  const xMeta = dfs(root, x, 0, null);
+  const yMeta = dfs(root, y, 0, null);
+
+  return (xMeta.depth === yMeta.depth) 
+         && (xMeta.parent !== yMeta.parent);
+};
