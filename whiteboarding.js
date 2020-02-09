@@ -1754,3 +1754,19 @@ var numDecodings = function(s) {
   
   return dp[s.length];
 };
+
+
+// https://leetcode.com/problems/unique-paths/
+// Not sure if this solution works, it exceeds the timelimit
+var uniquePathsBRUTEFORCE = function(m, n) {
+  let count = 0;
+  const recurse = (x, y) => {
+    if (x === m - 1 && y === n - 1) return count++;
+    if (x + 1 < m) recurse(x + 1, y);
+    if (y + 1 < n) recurse(x, y + 1);
+  }
+  
+  recurse(0, 0);
+  
+  return count;
+};
