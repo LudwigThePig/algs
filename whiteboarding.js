@@ -1770,3 +1770,17 @@ var uniquePathsBRUTEFORCE = function(m, n) {
   
   return count;
 };
+
+
+var uniquePaths = function(m, n) {
+  const dpMatrix = new Array(m)
+             .fill(new Array(n).fill(1));
+  
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
+      dpMatrix[i][j] = dpMatrix[i - 1][j] + dpMatrix[i][j - 1];
+    }
+  }
+  
+  return dpMatrix[m-1][n-1];
+};
