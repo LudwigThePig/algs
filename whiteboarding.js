@@ -1729,3 +1729,28 @@ const maxProduct = function(words) {
 
   return max;
 };
+
+
+
+// https://leetcode.com/problems/decode-ways/
+var numDecodings = function(s) {
+  if (!s.length || s[0] === '0') return 0;
+  
+  const dp = [1, 1];
+  
+  for (let i = 2; i <= s.length; i++) {
+    const cur = parseInt(s.slice(i - 2, i), 10);
+    
+    let twoPrior;
+    if (cur >= 10 && cur <= 26) twoPrior = dp[i - 2];
+    else twoPrior = 0;
+    
+    let onePrior;
+    if (parseInt(s.slice(i-1, i)) !== 0) onePrior = dp[i - 1];
+    else onePrior = 0;
+    
+    dp[i] = onePrior + twoPrior;
+  }
+  
+  return dp[s.length];
+};
