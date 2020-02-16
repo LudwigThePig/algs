@@ -1939,3 +1939,16 @@ var uniquePathsWithObstacles = function(obstacleGrid) {
 
   return obstacleGrid[m - 1][n - 1];
 };
+
+
+
+
+// https://leetcode.com/problems/largest-number/
+var largestNumber = function(nums) {
+  if (nums.every(int => int === 0)) return '0';
+  const compare = (a, b) => (b.toString() + a.toString()) - (a.toString() + b.toString());
+  
+  return nums
+    .sort(compare)
+    .join('');
+};
