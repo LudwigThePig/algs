@@ -1877,7 +1877,7 @@ AllOne.prototype.getMinKey = function() {
 
 
 // https://leetcode.com/problems/unique-paths-ii/
-var uniquePathsWithObstacles = function(obstacleGrid) {
+var uniquePathsWithObstaclesFAILED = function(obstacleGrid) {
   if (obstacleGrid[0][0] == 1) return 0;
 
   const m = obstacleGrid.length;
@@ -1901,3 +1901,41 @@ var uniquePathsWithObstacles = function(obstacleGrid) {
   return dpMatrix[m - 1][n - 1];
 };
 
+
+
+var uniquePathsWithObstacles = function(obstacleGrid) {
+  if (obstacleGrid[0][0] === 1) return 0;
+  
+  const m = obstacleGrid.length;
+  const n = obstacleGrid[0].length;
+  
+  obstacleGrid[0][0] = 1;
+
+  // Seed first col and flip bits
+  for (let i = 1; i < m; i++) {
+    const isNeighborFree = obstacleGrid[i - 1][0] === 1;
+    const isCurFree = obstacleGrid[i][0] === 0;
+    obstacleGrid[i][0] = (isNeighborFree && isCurFree) ? 1 : 0;
+  }
+    
+  // Seed first row and flip bits
+  for (let i = 1; i < n; i++) {
+    const isNeighborFree = obstacleGrid[0][i - 1] === 1;
+    const isCurFree = obstacleGrid[0][i] === 0;
+    obstacleGrid[0][i] = (isNeighborFree && isCurFree) ? 1 : 0;
+  }
+    
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
+      const above = obstacleGrid[i - 1][j];
+      const left = obstacleGrid[i][j - 1];
+
+      if (obstacleGrid[i][j] !== 1)
+        obstacleGrid[i][j] = above + left;
+      else
+        obstacleGrid[i][j] = 0;
+    }
+  }
+
+  return obstacleGrid[m - 1][n - 1];
+};
