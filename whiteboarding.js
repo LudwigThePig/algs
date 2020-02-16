@@ -1816,3 +1816,88 @@ var fib = function(n) {
   
   return dp[n];
 };
+
+
+
+
+
+// https://leetcode.com/problems/all-oone-data-structure/
+
+/**
+ * Initialize your data structure here.
+ */
+var AllOne = function() {
+  const dict = {};
+  const maxStack = [];
+  const minStack = [];
+};
+
+/**
+ * Inserts a new key <Key> with value 1. Or increments an existing key by 1. 
+ * @param {string} key
+ * @return {void}
+ */
+AllOne.prototype.inc = function(key) {
+    if (!dict.hasOwnProperty(key)) dict[key] = 1;
+    else {
+      if (!maxStack.length) { // Initialize Stacks
+        maxStack.unshift(key);
+        minStack.unshift(key);
+      } else {
+        
+      }
+    }
+};
+
+/**
+ * Decrements an existing key by 1. If Key's value is 1, remove it from the data structure. 
+ * @param {string} key
+ * @return {void}
+ */
+AllOne.prototype.dec = function(key) {
+    
+};
+
+/**
+ * Returns one of the keys with maximal value.
+ * @return {string}
+ */
+AllOne.prototype.getMaxKey = function() {
+    
+};
+
+/**
+ * Returns one of the keys with Minimal value.
+ * @return {string}
+ */
+AllOne.prototype.getMinKey = function() {
+    
+};
+
+
+
+// https://leetcode.com/problems/unique-paths-ii/
+var uniquePathsWithObstacles = function(obstacleGrid) {
+  if (obstacleGrid[0][0] == 1) return 0;
+
+  const m = obstacleGrid.length;
+  const n = obstacleGrid[0].length;
+  const dpMatrix = new Array(m).fill(new Array(n).fill(1));
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
+      let above;
+      let left;
+      
+      if (obstacleGrid[i - 1][j] !== 1) above = dpMatrix[i - 1][j];
+      else above = 0;
+
+      if (obstacleGrid[i][j - 1] !== 1) left = dpMatrix[i][j - 1];
+      else left = 0;
+
+      dpMatrix[i][j] = above + left;
+    }
+  }
+
+  return dpMatrix[m - 1][n - 1];
+};
+
