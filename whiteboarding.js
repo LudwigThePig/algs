@@ -1952,3 +1952,47 @@ var largestNumber = function(nums) {
     .sort(compare)
     .join('');
 };
+
+
+
+// https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/
+var shortestPath = function(grid, k) {
+  const rows = grid.length - 1;
+  const cols = grid[0].length - 1;
+  let moves = 0;
+
+  const bfs = [[0,0, k]];
+  const visited = new Set();
+  const directions = [[-1,0],[0,1],[1,0],[0,-1]];
+  
+  const isInBoundsOrVisited = (r, c, count) => 
+    visited.has(`${r}${c}${count}`) || r > rows || c > cols || r < 0 || c < 0;
+
+  while (bfs.length) {
+    let len = bfs.length;
+    while (len--) {
+      const [row, col, count] = bfs.shift();
+
+      if (visited.has(`${row}${col}${count}`)) continue; // Ahh shit, not this again
+      visited.add(`${row}${col}${count}`); // Mark your territory
+
+      // Add every viable neighbor to the queue
+      for (let dir of directions) {
+        const nRow = dir[0] + row;
+        const nCol = dir[1] + col;
+
+        if (isInBoundsOrVisited(nRow, nCol, count)) continue;
+        if (nRow === rows && nCol === cols) return moves + 1;
+
+        const nCount = grid[nRow][nCol] === 0 ? count : count - 1;
+
+        // If we are still alive, add to queue
+        if (nCount >= 0) bfs.push([nRow, nCol, nCount]);
+      }
+    }
+
+    moves++;
+  }
+  
+  return -1;
+};
