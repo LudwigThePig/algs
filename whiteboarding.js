@@ -2037,3 +2037,45 @@ var maxProduct = function(nums) {
   
   return result;
 };
+
+
+// https://leetcode.com/problems/dungeon-game/
+var calculateMinimumHP = function(dungeon) {
+  const rows = dungeon.length;
+  const cols = dungeon[0].length;
+
+  const dp = new Array(rows).fill(0).map(() => new Array(cols).fill(0).map(() => -Infinity));
+  
+  /** Calculate the max amount of health required to visit this room. * This is the crux of the whole problem.
+  * You can simplify `1 + -dungeon[r][c]` to `1 - dunegon[r][c]`,
+  * or use Math.min() but the logic is still the same. Do whatever
+  * is easiest for you to conceptualize and verbalize.
+  */
+  dp[rows - 1][cols - 1] = Math.max(
+    1, // No monster in room. You only need the bare minimum to live.
+    1 + -dungeon[rows - 1][cols - 1], // Ahh, monster in this room! We need this much health to live!
+  );
+  
+  // Seed the bottom row
+  for (let i = cols - 2; i >= 0; i--)
+    dp[rows-1][i] = Math.max(1, dp[rows-1][i+1] + -dungeon[rows-1][i]);
+  
+  // Seed the right most column
+  for (let i = rows - 2; i >= 0; i--)
+    dp[i][cols-1] = Math.max(1, dp[i+1][cols-1] + -dungeon[i][cols-1]);
+  
+  
+  for (let i = rows - 2; i >= 0; i--) {
+    for (let j = cols - 2; j >= 0; j--) {
+      // Figure out cost to visit either neighbor
+      const curRoom = -dungeon[i][j];
+      const rightRoom = Math.max(1, dp[i][j+1] + curRoom);
+      const belowRoom = Math.max(1, dp[i+1][j] + curRoom);
+
+      // Pick the cheaper neighbor
+      dp[i][j] = Math.min(rightRoom, belowRoom);
+    }
+  }
+  
+  return dp[0][0];
+};
