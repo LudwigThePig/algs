@@ -2018,3 +2018,22 @@ var maxProductBRUTEFORCE = function(nums) {
 
   return maxProduct;
 };
+
+
+var maxProduct = function(nums) {
+  let result = nums[0];
+  let priorMin = nums[0];
+  let priorMax = nums[0];
+
+  for (let i = 1; i < nums.length; i++) {
+    const cur = nums[i];
+    const tempMax = priorMax;
+    
+    priorMax = Math.max(cur, cur * priorMin, cur * priorMax);
+    priorMin = Math.min(cur, cur * priorMin, cur * tempMax);
+
+    result = Math.max(result, priorMax);
+  }
+  
+  return result;
+};
