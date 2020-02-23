@@ -1996,3 +1996,25 @@ var shortestPath = function(grid, k) {
   
   return -1;
 };
+
+
+
+
+// https://leetcode.com/problems/maximum-product-subarray/
+var maxProductBRUTEFORCE = function(nums) {
+  let maxProduct = -Infinity;
+
+  for (let i = 0; i < nums.length; i++) {
+    let curProduct = nums[i];
+    
+    // If one val in array or one val is greater than any product
+    maxProduct = Math.max(curProduct, maxProduct);
+
+    for (let j = i + 1; j < nums.length; j++) {
+      curProduct *= nums[j];
+      maxProduct = Math.max(curProduct, maxProduct);
+    }
+  }
+
+  return maxProduct;
+};
