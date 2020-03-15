@@ -2102,4 +2102,6 @@ var calPoints = function(ops) {
       stack.push(parseInt(op, 10));
     }
   }
-  
+
+  return stack.reduce((acc, cur) => acc + cur, 0);;
+};
