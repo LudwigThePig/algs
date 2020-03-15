@@ -2079,3 +2079,27 @@ var calculateMinimumHP = function(dungeon) {
   
   return dp[0][0];
 };
+
+
+
+
+// https://leetcode.com/problems/baseball-game/submissions/
+
+var calPoints = function(ops) {
+  const stack = [];
+
+  for (let op of ops) {
+    const top = stack.length - 1;
+    if (op === 'C') {
+      stack.pop();
+    } else if (op === 'D') {
+      const product = stack[top] * 2;
+      stack.push(product);
+    } else if (op === '+') {
+      const sum = stack[top] + stack[top - 1];
+      stack.push(sum);
+    } else {
+      stack.push(parseInt(op, 10));
+    }
+  }
+  
