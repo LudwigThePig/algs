@@ -2105,3 +2105,7 @@ var calPoints = function(ops) {
 
   return stack.reduce((acc, cur) => acc + cur, 0);;
 };
+
+
+// https://leetcode.com/problems/count-complete-tree-nodes/
+var countNodes=r=>r?1+countNodes(r.left)+countNodes(r.right):0;
