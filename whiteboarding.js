@@ -2132,3 +2132,24 @@ var calPoints = function(ops) {
   
   return stack.reduce((acc, cur) => acc + cur, 0);;
 };
+
+
+
+
+
+// https://leetcode.com/problems/linked-list-in-binary-tree/
+const checkSubPath = (head, root) => {
+  if (!head) return true
+  if (!root) return false
+  if (head.val !== root.val) return false
+  return checkSubPath(head.next, root.left) || checkSubPath(head.next, root.right)
+}
+
+var isSubPath = function(head, root) {
+if (!root) return false;
+if (root.val === head.val 
+    && checkSubPath(head, root)) {
+  return true
+}
+return isSubPath(head, root.left) || isSubPath(head, root.right)
+};
