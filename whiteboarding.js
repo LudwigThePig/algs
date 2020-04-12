@@ -2153,3 +2153,28 @@ if (root.val === head.val
 }
 return isSubPath(head, root.left) || isSubPath(head, root.right)
 };
+
+
+
+
+
+
+
+
+// https://leetcode.com/explore/challenge/card/30-day-leetcoding-challenge/529/week-2/3293/
+var diameterOfBinaryTree = function(root) {
+  if (!root) return 0;
+  let res = 0;
+  
+  const dfs = root => {
+    if (!root) return 0;
+    const left = dfs(root.left);
+    const right = dfs(root.right);
+    res = Math.max(res, left + right);
+    return Math.max(left, right) + 1
+  }
+
+  dfs(root);
+
+  return res;
+};
