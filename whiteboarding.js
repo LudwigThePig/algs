@@ -2178,3 +2178,23 @@ var diameterOfBinaryTree = function(root) {
 
   return res;
 };
+
+
+
+
+
+
+// https://leetcode.com/problems/contiguous-array/solution/
+var findMaxLength = function(nums) {
+  let res = 0;
+  const sums = { 0: -1 };
+  let cur = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    cur += (nums[i] ? 1 : -1);
+    if (cur in sums) res = Math.max(res, i - sums[cur]);
+    else  sums[cur] = i;
+  }
+
+  return res;
+};
