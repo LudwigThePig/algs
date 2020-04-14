@@ -2182,8 +2182,6 @@ var diameterOfBinaryTree = function(root) {
 
 
 
-
-
 // https://leetcode.com/problems/contiguous-array/solution/
 var findMaxLength = function(nums) {
   let res = 0;
@@ -2197,4 +2195,19 @@ var findMaxLength = function(nums) {
   }
 
   return res;
+};
+
+
+
+
+
+
+// https://leetcode.com/problems/last-stone-weight/
+var lastStoneWeight = function(stones) {
+  stones.sort((a, b) => a - b)
+  while (stones.length > 1) {
+    const num = Math.abs(stones.pop() - stones.pop())
+    stones.splice(stones.findIndex(item => item >= num), 0, num)
+  }
+  return stones[0]
 };
