@@ -2226,3 +2226,29 @@ var isSameTree = function(p, q) {
 
   return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
 };
+
+
+
+
+
+// https://leetcode.com/problems/validate-binary-search-tree/
+var isValidBST = function(root) {
+  if (!root) return true;
+  let cur = root;
+  let stack = [];
+  let parentVal = -Infinity;
+
+  while (stack.length || cur !== null) {
+    while (cur !== null) {
+      stack.push(cur)
+      cur = cur.left;
+    }
+
+    cur = stack.pop();
+    if (cur.val <= parentVal) return false;
+    parentVal = cur.val;
+    cur = cur.right;
+  }
+
+  return true;
+};
