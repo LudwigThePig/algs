@@ -2233,22 +2233,21 @@ var isSameTree = function(p, q) {
 
 // https://leetcode.com/problems/validate-binary-search-tree/
 var isValidBST = function(root) {
-  if (!root) return true;
   let cur = root;
-  let stack = [];
+  const stack = [];
   let parentVal = -Infinity;
-
-  while (stack.length || cur !== null) {
-    while (cur !== null) {
-      stack.push(cur)
+  
+  while (stack.length || cur) {
+    // Go left
+    while(cur) {
+      stack.push(cur);
       cur = cur.left;
     }
-
+    // cur should be null
     cur = stack.pop();
     if (cur.val <= parentVal) return false;
     parentVal = cur.val;
-    cur = cur.right;
+    cur = cur.right
   }
-
   return true;
 };
