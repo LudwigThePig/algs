@@ -2251,3 +2251,31 @@ var isValidBST = function(root) {
   }
   return true;
 };
+
+
+
+
+// https://leetcode.com/problems/path-sum-ii/submissions/
+function pathSum(root, target) {
+	const res = [];
+
+	function dfs(node, curSum, trail) {
+		if (!node) return;
+
+    const tr = trail.slice();
+		tr.push(node.val);
+    const nextVal = curSum + node.val;
+    
+    if (!node.left && !node.right) {
+      if (nextVal === target) res.push(tr);
+      return;
+    }
+
+		dfs(node.left, nextVal, tr);
+    dfs(node.right, nextVal, tr);
+  }
+
+  dfs(root, 0, []);
+
+	return res;
+}
