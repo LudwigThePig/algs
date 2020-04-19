@@ -2402,3 +2402,19 @@ var isPalindrome = function(head) {
   
   return true;
 };
+
+
+// https://leetcode.com/problems/binary-search/
+var search = function(nums, target) {
+  let left = 0;
+  let right = nums.length - 1;
+  
+  while (left < right) {
+    const mid = left + Math.floor((right - left + 1) / 2);
+    if (nums[mid] === target) return mid;
+    if (target < nums[mid]) right = mid-1;
+    else left = mid;
+  }
+  
+  return nums[left] === target ? left : -1;
+};
