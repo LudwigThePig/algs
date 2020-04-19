@@ -2351,3 +2351,17 @@ var search = function(nums, target) {
 
   return -1;
 };
+
+
+// https://leetcode.com/problems/reverse-linked-list/
+var reverseList = function(head) {
+  let prev = null;
+  let cur = head;
+  while (cur) {
+    const next = cur.next;
+    cur.next = prev;
+    prev = cur;
+    cur = next;
+  }
+  return prev;
+};
