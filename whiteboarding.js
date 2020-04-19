@@ -2365,3 +2365,40 @@ var reverseList = function(head) {
   }
   return prev;
 };
+
+
+// https://leetcode.com/problems/palindrome-linked-list/
+var isPalindrome = function(head) {
+  if (!head) return true;
+  
+  let slow = head;
+  let fast = head;
+  
+  while (fast && fast.next) {
+    fast = fast.next.next;
+    slow = slow.next;
+  }
+  
+  // reverse ll
+  let prev = null;
+  let cur = slow;
+  while (cur) {
+    const next = cur.next;
+    cur.next = prev;
+    prev = cur;
+    cur = next;
+  }
+
+  fast = head;
+
+
+  // check for pal
+  while (fast && prev) {
+    if (fast.val !== prev.val) return false;
+
+    fast = fast.next;
+    prev = prev.next
+  }
+  
+  return true;
+};
