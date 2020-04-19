@@ -2279,3 +2279,75 @@ function pathSum(root, target) {
 
 	return res;
 }
+
+
+
+
+
+
+
+
+/**
+ * Intuition:
+ * 
+ * I started with finding the pivot point but in doing that realized
+ *  that you don't need to know the pivot point, you only need to 
+ * know if it is to the right or left of the center. By that,
+ * I mean...
+ * 
+ * - Setup for a binary search as normal.
+ * - Your first decision is determined off of whether or not the
+ *  pivot is to the right or left of center. (if left is less than
+ * center, pivot is right, etc.).
+ * 
+ * If you know which side has the pivot, *you know the other side
+ * is sorted*. Check if your target is in the range of the sorted
+ * side.
+ * 
+ * For example,
+ *    target: 5
+ *    arr  3  4  5  6  7  1  2
+ *         ^        ^     ^  ^
+ *         L        C     P  R
+ *  - Our pivot is to the right, So, the left range is (3, 6).
+ *  - Our target is in that range.
+ *  - So, move the right pointer to center
+ * 
+ *  Now we have,
+ * 
+ *  arr  3  4  5  6
+ *       ^  ^     ^    ^
+ *       L  C     R    P  ?
+ * 
+ * Now there is no pivot point, so you can do a normal binary
+ * search.
+ */
+
+
+var search = function(nums, target) {
+  if (nums.length < 2) return nums[0] === target ? 0 : -1;
+    
+  let left = 0;
+  let right = nums.length - 1;
+  let center = Math.floor((right + left) / 2);
+    
+  while (left < right) {
+    if (nums[left] <= nums[center]) {
+        if (nums[left] <= target && target <= nums[center]) {
+            right = center;
+        } else {
+            left = center + 1;
+        }
+    } else {
+        if (nums[center] < target && target <= nums[right]) {
+            left = center + 1;
+        } else {
+            right = center;
+        }
+    }
+    center = Math.floor((right+left)/2);
+    if (nums[center] === target) return center;
+  }
+
+  return -1;
+};
