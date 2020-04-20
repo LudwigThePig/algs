@@ -2418,3 +2418,34 @@ var search = function(nums, target) {
   
   return nums[left] === target ? left : -1;
 };
+
+
+
+
+
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var preorderTraversal = function(root) {
+  if (!root) return [];
+
+  const stack = [root];
+  const res = [];
+
+  while (stack.length) {
+    const cur = stack.pop()
+    res.push(cur.val);
+    if (cur.right) stack.push(cur.right);
+    if (cur.left) stack.push(cur.left);
+  }
+  return res;
+};
