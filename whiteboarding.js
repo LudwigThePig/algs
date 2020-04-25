@@ -2449,3 +2449,113 @@ var preorderTraversal = function(root) {
   }
   return res;
 };
+
+
+
+
+class DLLNode {
+  constructor(key, val) {
+    this.key = key;
+    this.val = val;
+    this.next = null;
+    this .prev = null;
+  }
+}
+
+
+/**
+ * @param {number} capacity
+ */
+var LRUCache = function(capacity) {
+  this.head = new DLLNode();
+  this.tail = new DLLNode();
+  this.head.next = this.tail;
+  this.tail.prev = this.head;
+  
+  this.size = 0;
+  this.ptrs = {};
+  this.capacity = capacity;
+};
+
+LRUCache.prototype.deleteNode = function(node) {
+  if (node.prev && node.next) {
+    node.prev.next = node.next;
+    node.next.prev = node.prev;  
+  }
+  
+}
+
+/** 
+ * @return {void}
+ */
+LRUCache.prototype.trim = function() {
+  if (this.size > this.capacity) {
+    const node = this.tail.prev;
+    delete this.ptrs[node.key]
+
+    this.deleteNode(node);
+    this.size--;
+  };
+};
+
+
+/** 
+ * @param {DLLNode} node
+ * @return {void}
+ */
+LRUCache.prototype.moveToFront = function(node) {
+  this.deleteNode(node);
+
+  node.next = this.head.next;
+	node.next.prev = node;
+	node.prev = this.head;
+	this.head.next = node;
+};
+
+
+/** 
+ * @param {number} key
+ * @return {number}
+ */
+LRUCache.prototype.get = function(key) {
+  let res = -1;
+
+  if (key in this.ptrs) {
+    const node = this.ptrs[key];
+    res = node.val;
+    this.moveToFront(node);
+  }
+
+  return res;
+};
+
+/** 
+ * @param {number} key 
+ * @param {number} value
+ * @return {void}
+ */
+LRUCache.prototype.put = function(key, val) {
+  let node;
+
+  if (key in this.ptrs) {
+    node = this.ptrs[key];
+    node.val = val;
+    this.moveToFront(node);
+  } else {
+    node = new DLLNode(key, val);
+    
+    this.ptrs[key] = node;
+    this.moveToFront(node);
+    this.size++;
+    this.trim();
+  }
+
+  this.moveToFront(node);
+};
+
+/** 
+ * Your LRUCache object will be instantiated and called as such:
+ * var obj = new LRUCache(capacity)
+ * var param_1 = obj.get(key)
+ * obj.put(key,value)
+ */
