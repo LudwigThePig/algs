@@ -2553,9 +2553,19 @@ LRUCache.prototype.put = function(key, val) {
   this.moveToFront(node);
 };
 
-/** 
- * Your LRUCache object will be instantiated and called as such:
- * var obj = new LRUCache(capacity)
- * var param_1 = obj.get(key)
- * obj.put(key,value)
- */
+
+// https://leetcode.com/explore/challenge/card/30-day-leetcoding-challenge/531/week-4/3310/
+// Brute Force: try to jump to every square possible //
+var canJumpBRUTEFORCE = function(nums) {
+  let res = false;
+  const recurse = i => {
+    if (i >= nums.length - 1) {
+      res = true;
+      return;
+    }
+    
+    for (let j = 1; j <= nums[i]; j++) recurse(i+j);
+  }
+  recurse(0);
+  return res;
+};
