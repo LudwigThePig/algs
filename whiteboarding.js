@@ -2571,8 +2571,7 @@ var canJumpBRUTEFORCE = function(nums) {
 };
 
 
-
-
+// DP top down, death by edge cases //
 var canJumpDP = function(nums) {
   const target = nums.length - 1;
   
@@ -2592,4 +2591,16 @@ var canJumpDP = function(nums) {
   }
 
   return i >= target;
+};
+
+
+// DP bottom up //
+var canJump = function(nums) {
+  let target = nums.length - 1; // our dp
+
+  for (let i = target; i >= 0; i--) {
+    if (i + nums[i] >= target) target = i;
+  }
+
+  return target === 0;
 };
