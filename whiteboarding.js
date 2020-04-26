@@ -2569,3 +2569,27 @@ var canJumpBRUTEFORCE = function(nums) {
   recurse(0);
   return res;
 };
+
+
+
+
+var canJumpDP = function(nums) {
+  const target = nums.length - 1;
+  
+  // store if this index leads to a good or bad spot
+  let dp = nums.map((dist, i) => (nums[dist + i] !== 0) || dist + i >= target);
+  
+
+  let i = 0;
+  // 1  1  1  0
+  // i = 0, j = 1, dp[i+j] == 0
+  while (i <= target) {
+    let j = nums[i];
+    if (i + j >= target) return true; // a short circuit hack for [2, 0] case
+    while(!dp[i + j] && j > 0) j--;
+    if (j === 0) break;
+    i += j;
+  }
+
+  return i >= target;
+};
