@@ -2628,3 +2628,6 @@ var longestCommonSubsequence = function(text1, text2) {
   
   return dp[text1.length][text2.length]
 };
+
+// https://leetcode.com/explore/featured/card/may-leetcoding-challenge/534/week-1-may-1st-may-7th/3317/
+var numJewelsInStones=(J, S)=>S.split('').reduce((a,c)=>a[1].has(c)?[a[0]+1,a[1]]:[a[0],a[1]],[0,new Set(J)])[0];
