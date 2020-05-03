@@ -2631,3 +2631,24 @@ var longestCommonSubsequence = function(text1, text2) {
 
 // https://leetcode.com/explore/featured/card/may-leetcoding-challenge/534/week-1-may-1st-may-7th/3317/
 var numJewelsInStones=(J, S)=>S.split('').reduce((a,c)=>a[1].has(c)?[a[0]+1,a[1]]:[a[0],a[1]],[0,new Set(J)])[0];
+
+// https://leetcode.com/explore/featured/card/may-leetcoding-challenge/534/week-1-may-1st-may-7th/3318/
+var canConstruct = function(ransomNote, magazine) {
+  if(ransomNote.length > magazine.length) return false;
+
+  const availableLetters = {};
+
+  for (let i = 0; i < magazine.length; i++) {
+    const ch = magazine[i];
+    if (availableLetters.hasOwnProperty(ch)) availableLetters[ch]++;
+    else availableLetters[ch] = 1;
+  }
+  
+  for (let i = 0; i < ransomNote.length; i++) {
+    const ch = ransomNote[i];
+    if (availableLetters[ch]) availableLetters[ch]--;
+    else return false;
+  }
+  
+  return true;
+};
