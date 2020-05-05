@@ -2652,3 +2652,29 @@ var canConstruct = function(ransomNote, magazine) {
   
   return true;
 };
+
+
+// https://leetcode.com/problems/spiral-matrix-ii/submissions/
+var generateMatrix = function(n) {
+  if (n <= 0) return [];
+  const matrix = new Array(n).fill(null).map(_ => new Array(n));
+  
+  let count = 1;
+  let left = 0, right = n - 1, up = 0, down = n - 1;
+  
+  while (left <= right || up <= down) {
+    for (let i = left; i <= right; i++) matrix[up][i] = count++;
+    up++;
+    
+    for (let i = up; i <= down; i++) matrix[i][right] = count++;
+    right--;
+    
+    for (let i = right; i >= left; i--) matrix[down][i] = count++;
+    down--;
+    
+    for (let i = down; i >= up; i--) matrix[i][left] = count++;
+    left++;
+  }
+  
+  return matrix;
+};
