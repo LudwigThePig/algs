@@ -2696,3 +2696,21 @@ var isPerfectSquare = function(num) {
   
   return false;
 };
+
+// https://leetcode.com/explore/featured/card/may-leetcoding-challenge/535/week-2-may-8th-may-14th/3323/
+const getSlope = ([x1, y1], [x2, y2]) => {
+  const dx = x2 - x1;
+  const dy = y2 - y1;
+  return (dx === 0) ? Infinity : dy / dx;
+};
+
+var checkStraightLine = function(coordinates) {
+  if (coordinates.length <= 2) return true;
+  const slope = getSlope(coordinates[0], coordinates[1]);
+  
+  for (let i = 1; i < coordinates.length - 1; i++) {
+    if (getSlope(coordinates[i], coordinates[i+1]) !== slope) return false;
+  }
+
+  return true;
+};
