@@ -2678,3 +2678,21 @@ var generateMatrix = function(n) {
   
   return matrix;
 };
+
+// https://leetcode.com/explore/featured/card/may-leetcoding-challenge/535/week-2-may-8th-may-14th/3324/
+var isPerfectSquare = function(num) {
+  let left = 0;
+  let right = num;
+  
+  while (left <= right) {
+    const mid = ((right + left ) >> 1);
+    const product = mid * mid;
+
+    if (product === num) return true;
+    
+    if (product > num) right = mid - 1;
+    else left = mid + 1;
+  }
+  
+  return false;
+};
