@@ -2738,3 +2738,32 @@ var wordBreak = function(s, wordDict) {
 
   return dp[dp.length - 1];
 };
+
+var oddEvenList = function(head) {
+  if (!head) return null;
+  const evensHead = head;
+  let evens = evensHead;
+
+  let oddsHead = head.next;
+  let odds = oddsHead;
+
+  let cur = head;
+  let isEven = true;
+  while (cur) {
+    const next = cur.next;
+    if (isEven) {
+      evens.next = cur;
+      evens = evens.next
+    } else {
+      odds.next = cur;
+      odds = odds.next;
+    }
+
+    isEven = !isEven;
+    cur = next;
+  }
+  
+  evens.next = oddsHead;
+  if (odds) odds.next = null;
+  return evensHead;
+};
